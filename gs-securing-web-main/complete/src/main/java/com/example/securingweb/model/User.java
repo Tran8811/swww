@@ -1,7 +1,5 @@
 package com.example.securingweb.model;
 
-
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,7 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
-    @JsonTypeInfo.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -49,7 +47,7 @@ public class User implements UserDetails {
     // UserDetails methods
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return (Collection<? extends GrantedAuthority>) List.of(new SimpleGrantedAuthority("ROLE_" + roles));  // Spring Security yêu cầu prefix "ROLE_"
+        return List.of(new SimpleGrantedAuthority("ROLE_" + roles));  // Spring Security yêu cầu prefix "ROLE_"
     }
 
     @Override

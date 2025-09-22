@@ -18,18 +18,18 @@ public class SecuringWebApplication {
 	@Bean
 	public CommandLineRunner demo(UserRepository repository, PasswordEncoder passwordEncoder) {
 		return (args) -> {
-			// Xóa dữ liệu cũ nếu có
+			// Xóa dữ liệu cũ
 			repository.deleteAll();
 
-			// Tạo user USER
+			// User USER (password hashed)
 			User user = new User("user", passwordEncoder.encode("password"), "USER");
 			repository.save(user);
 
-			// Tạo user ADMIN
+			// User ADMIN (password hashed)
 			User admin = new User("admin", passwordEncoder.encode("admin"), "ADMIN");
 			repository.save(admin);
 
-			System.out.println("Users created: USER (user/password), ADMIN (admin/admin)");
+			System.out.println("Users saved to MySQL: USER (user/password), ADMIN (admin/admin)");
 		};
 	}
 }
